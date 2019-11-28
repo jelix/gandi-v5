@@ -23,4 +23,18 @@ class Organizations extends AbstractApi
         }, $organizations);
     }
 
+
+    /**
+     * @param $name
+     * @return Organization|null  null if not found
+     * @throws \Exception
+     */
+    function getOrganizationByName($name) {
+        $response = $this->httpGet("organization/organizations", array('name'=>$name));
+        $organizations = json_decode($response->getBody());
+        if (count($organizations)) {
+            return Organization::createFromApi($organizations[0]);
+        }
+        return null;
+    }
 }

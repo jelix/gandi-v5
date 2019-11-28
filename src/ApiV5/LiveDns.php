@@ -12,6 +12,23 @@ use Jelix\GandiApi\ApiV5\LiveDns\ZoneRecord;
 
 class LiveDns extends AbstractApi
 {
+    /**
+     * @param string $orgId
+     * @return string[]
+     * @throws \Exception
+     */
+    function getDomainsList($orgId = '') {
+        if ($orgId) {
+            $response = $this->httpGet("livedns/domains", array('sharing_id'=>$orgId));
+        }
+        else {
+            $response = $this->httpGet("livedns/domains");
+        }
+        $domains = json_decode($response->getBody());
+        return array_map(function($rec) {
+            return $rec->fqdn;
+        }, $domains);
+    }
 
     /**
      * @param string $domain
