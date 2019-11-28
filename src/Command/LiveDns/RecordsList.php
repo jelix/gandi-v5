@@ -48,7 +48,7 @@ class RecordsList  extends AbstractCommand
                 $record->getName(),
                 $record->getType(),
                 $record->getTtl(),
-                implode("\n",$record->getValue()),
+                implode("\n",$record->getValues()),
             );
             $table->addRow($row);
         }

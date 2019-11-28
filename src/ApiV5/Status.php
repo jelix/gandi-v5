@@ -20,5 +20,4 @@ class Status
         $gandi_status = json_decode($res->getBody(), true);
         return $gandi_status["status"];
     }
-
 }

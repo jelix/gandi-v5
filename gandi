@@ -28,8 +28,9 @@ $configuration = new Configuration(file_get_contents($apiKeyFile));
 $application = new Application($configuration);
 $application->add(new Status());
 $application->add(new OrganizationList());
-$application->add(new LiveDns\RecordsList());
 $application->add(new LiveDns\DomainsList());
+$application->add(new LiveDns\RecordsList());
+$application->add(new LiveDns\RecordCreate());
 $application->run();
 
 

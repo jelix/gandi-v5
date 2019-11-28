@@ -26,7 +26,6 @@ class Organization
         $this->name = $name;
         $this->type = $type;
         $this->id = $id;
-
     }
 
     /**

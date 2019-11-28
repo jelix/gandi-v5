@@ -43,29 +43,74 @@ abstract class AbstractApi
         return $this->_client;
     }
 
-    protected function httpGet($apiPath, $queryParameters = array(), $additionalHeaders = array())
+    /**
+     * @param $apiPath
+     * @param $method
+     * @param array $options
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function _doHttp($apiPath, $method, $options = array())
     {
         $client = $this->getHttpClient();
 
-        $headers = array(
-            'Authorization'=>'Apikey '.$this->config->getApiKey(),
-            'Accept' => 'application/json'
-        );
-
-        $options = array(
-            'headers' => array_merge($headers, $additionalHeaders)
-        );
-
-        if (count($queryParameters)) {
-            $options['query'] = $queryParameters;
+        if (!isset($options['headers'])) {
+            $options['headers'] = array();
         }
-        $response = $client->request('GET', $apiPath, $options);
-        if ($response->getStatusCode() >= 300) {
-            throw new \Exception("Http error: ".$response->getReasonPhrase());
+        $options['headers']['Authorization'] = 'Apikey '.$this->config->getApiKey();
+
+        if (!isset($options['headers']['Accept'])) {
+            $options['headers']['Accept'] = 'application/json';
+        }
+
+        $response = $client->request($method, $apiPath, $options);
+        if ($response->getStatusCode() >= 400) {
+            throw new GandiException($response);
         }
 
         return $response;
     }
 
+
+    protected function httpGet($apiPath, $queryParameters = array(), $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' =>$additionalHeaders
+        );
+
+        if (count($queryParameters)) {
+            $options['query'] = $queryParameters;
+        }
+        return $this->_doHttp($apiPath, 'GET', $options);
+    }
+
+    protected function httpPost($apiPath, $jsonData = array(), $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' =>$additionalHeaders,
+            'json' => $jsonData
+        );
+        return $this->_doHttp($apiPath, 'POST', $options);
+    }
+
+    protected function httpPostForm($apiPath, $formParameters = array(), $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' => $additionalHeaders,
+            'form_params' => $formParameters
+        );
+
+        return $this->_doHttp($apiPath, 'POST', $options);
+    }
+
+    protected function httpDelete($apiPath, $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' => array_merge($additionalHeaders),
+        );
+
+        return $this->_doHttp($apiPath, 'DELETE', $options);
+    }
 
 }

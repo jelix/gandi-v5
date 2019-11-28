@@ -17,17 +17,17 @@ class ZoneRecord
 
     protected $ttl = 10800;
 
-    protected $value = array();
+    protected $values = array();
 
     /**
      * ZoneRecord constructor
      */
-    function __construct($name, $type, $value, $ttl=10800)
+    function __construct($name, $type, $values, $ttl=10800)
     {
         $this->name = $name;
         $this->type = $type;
-        $this->ttl = $value;
-        $this->value = $ttl;
+        $this->ttl = $ttl;
+        $this->values = $values;
     }
 
     /**
@@ -56,8 +56,16 @@ class ZoneRecord
         return $this->ttl;
     }
 
-    public function getValue() {
-        return $this->value;
+    public function getValues() {
+        return $this->values;
     }
 
+    public function toJsonData() {
+        return array(
+            'rrset_name' => $this->name,
+            'rrset_type' => $this->type,
+            'rrset_values' => $this->values,
+            'rrset_ttl' => $this->ttl,
+        );
+    }
 }

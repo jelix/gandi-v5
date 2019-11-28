@@ -32,11 +32,8 @@ class Status extends  Command
             default:
                 $output->writeln("<error>Gandi is experiencing a bit of trouble: $status</error>");
                 $this->setCode(1);
-
         };
     }
-
-
 }
 
 

@@ -43,4 +43,11 @@ class LiveDns extends AbstractApi
         }, $records);
     }
 
+    function createRecord($domain, ZoneRecord $record)
+    {
+        $response = $this->httpPost("livedns/domains/$domain/records", $record->toJsonData());
+        $record = json_decode($response->getBody());
+        return $record->message;
+    }
+
 }
