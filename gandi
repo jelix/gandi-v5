@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author      Laurent Jouanneau
+ * @copyright   2019 Laurent Jouanneau
+ * @licence     MIT
+ */
+
+require(__DIR__.'/vendor/autoload.php');
+
+
+$application = new \Symfony\Component\Console\Application();
+$application->add(new \Jelix\GandiApi\Command\Status());
+$application->run();
+
+

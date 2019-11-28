@@ -1,0 +1,7 @@
+vendor
+MANIFEST
+_dist
+.DS_Store
+.idea
+.project
+
