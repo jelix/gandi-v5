@@ -11,6 +11,8 @@ require(__DIR__.'/vendor/autoload.php');
 use Jelix\GandiApi\Configuration;
 use Jelix\GandiApi\Command\Application;
 use Jelix\GandiApi\Command\Status;
+use Jelix\GandiApi\Command\LiveDns;
+
 
 $apiKeyFile = __DIR__.'/.apikey';
 
@@ -24,6 +26,7 @@ $configuration = new Configuration(file_get_contents($apiKeyFile));
 
 $application = new Application($configuration);
 $application->add(new Status());
+$application->add(new LiveDns\RecordsList());
 $application->run();
 
 

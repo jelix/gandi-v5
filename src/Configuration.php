@@ -24,4 +24,9 @@ class Configuration {
     {
         return $this->apiKey;
     }
+
+    function getGandiEndPoint() {
+        return 'api.gandi.net';
+    }
+
 }
