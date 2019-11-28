@@ -8,9 +8,22 @@
 
 require(__DIR__.'/vendor/autoload.php');
 
+use Jelix\GandiApi\Configuration;
+use Jelix\GandiApi\Command\Application;
+use Jelix\GandiApi\Command\Status;
 
-$application = new \Symfony\Component\Console\Application();
-$application->add(new \Jelix\GandiApi\Command\Status());
+$apiKeyFile = __DIR__.'/.apikey';
+
+if (!file_exists($apiKeyFile)) {
+    echo "Error: .apikey is missing";
+    exit(1);
+}
+
+$configuration = new Configuration(file_get_contents($apiKeyFile));
+
+
+$application = new Application($configuration);
+$application->add(new Status());
 $application->run();
 
 
