@@ -5,7 +5,7 @@
  * @licence     MIT
  */
 
-namespace Jelix\GandiApi\ApiV5;
+namespace Jelix\GandiApi\ApiV5\Entities;
 
 
 class Organization
@@ -19,7 +19,7 @@ class Organization
     protected $email = '';
 
     /**
-     * ZoneRecord constructor
+     * Organization constructor
      */
     function __construct($name, $id, $type)
     {
@@ -29,15 +29,15 @@ class Organization
     }
 
     /**
-     * Create a ZoneRecord object from data retrieved with the web API
-     * @param \stdClass $rawRecord
+     * Create an Organisation object from data retrieved with the web API
+     * @param \stdClass $rawOrg
      */
-    static function createFromApi($rawRecord)
+    static function createFromApi($rawOrg)
     {
         return new Organization(
-            $rawRecord->name,
-            $rawRecord->id,
-            $rawRecord->type
+            $rawOrg->name,
+            $rawOrg->id,
+            $rawOrg->type
         );
     }
 

@@ -8,7 +8,7 @@
 namespace Jelix\GandiApi\ApiV5;
 
 
-use Jelix\GandiApi\ApiV5\LiveDns\ZoneRecord;
+use Jelix\GandiApi\ApiV5\Entities\ZoneRecord;
 
 class LiveDns extends AbstractApi
 {

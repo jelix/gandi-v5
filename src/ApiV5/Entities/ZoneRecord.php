@@ -5,7 +5,7 @@
  * @licence     MIT
  */
 
-namespace Jelix\GandiApi\ApiV5\LiveDns;
+namespace Jelix\GandiApi\ApiV5\Entities;
 
 
 class ZoneRecord

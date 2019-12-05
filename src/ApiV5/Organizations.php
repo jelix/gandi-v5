@@ -6,7 +6,7 @@
  */
 
 namespace Jelix\GandiApi\ApiV5;
-
+use Jelix\GandiApi\ApiV5\Entities\Organization;
 
 class Organizations extends AbstractApi
 {

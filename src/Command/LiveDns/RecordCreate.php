@@ -7,7 +7,7 @@
 
 namespace Jelix\GandiApi\Command\LiveDns;
 
-use Jelix\GandiApi\ApiV5\LiveDns\ZoneRecord;
+use Jelix\GandiApi\ApiV5\Entities\ZoneRecord;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
