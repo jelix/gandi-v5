@@ -14,11 +14,35 @@ use Jelix\GandiApi\Command\Status;
 use Jelix\GandiApi\Command\OrganizationList;
 use Jelix\GandiApi\Command\LiveDns;
 
+if (getenv('GANDI_APIKEY_FILE')) {
+    $apiKeyFile = getenv('GANDI_APIKEY_FILE');
+}
+else {
+    $apiKeyFile = __DIR__.'/.gandi-apikey';
+    if (!file_exists($apiKeyFile)) {
+        if (isset($_SERVER['HOME'])) {
+            $home = $_SERVER['HOME'];
+        } elseif (isset($_ENV['HOME'])) {
+            $home = $_ENV['HOME'];
+        } elseif (isset($_SERVER['USERPROFILE'])) { // windows
+            $home = $_SERVER['USERPROFILE'];
+        } elseif (isset($_SERVER['HOMEDRIVE'], $_SERVER['HOMEPATH'])) { // windows
+            $home = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'];
+        }
 
-$apiKeyFile = __DIR__.'/.gandi-apikey';
+        if ($home) {
+            if (file_exists($home.DIRECTORY_SEPARATOR.'.gandi-apikey')) {
+                $apiKeyFile = $home.DIRECTORY_SEPARATOR.'.gandi-apikey';
+            } else {
+                // windows users don't often use dot files.
+                $apiKeyFile = $home.DIRECTORY_SEPARATOR.'gandi-apikey';
+            }
+        }
+    }
+}
 
 if (!file_exists($apiKeyFile)) {
-    echo "Error: .gandi-apikey is missing";
+    echo "Error: API key for Gandi is missing\n";
     exit(1);
 }
 
