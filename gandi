@@ -15,10 +15,10 @@ use Jelix\GandiApi\Command\OrganizationList;
 use Jelix\GandiApi\Command\LiveDns;
 
 
-$apiKeyFile = __DIR__.'/.apikey';
+$apiKeyFile = __DIR__.'/.gandi-apikey';
 
 if (!file_exists($apiKeyFile)) {
-    echo "Error: .apikey is missing";
+    echo "Error: .gandi-apikey is missing";
     exit(1);
 }
 

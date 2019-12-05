@@ -5,4 +5,4 @@ _dist
 .idea
 .project
 
-.apikey
+.gandi-apikey
