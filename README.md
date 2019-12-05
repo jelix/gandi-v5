@@ -1,9 +1,7 @@
 
 Library and command line to use the Gandi V5 API.
 
-See Documentation reference of the Gandi V5 API: https://api.gandi.net/docs/
-
-This library is not developed and maintained by Gandi.
+This library is not developed or maintained by Gandi.
 
 Using CLI commands
 ==================
@@ -39,3 +37,63 @@ Use the `gandi` script to execute command.
 ./gandi status
 
 ```
+
+
+Using the library in your code
+===============================
+
+You should first create a `Jelix\GandiApi\Configuration` object, with the API key:
+
+```php
+<?php
+use Jelix\GandiApi\Configuration;
+
+$configuration = new Configuration('my api key');
+
+```
+
+Then give this object to all classes that use the Gandi API v5.
+
+Example:
+
+```php
+<?php
+
+// List of organizations
+
+use Jelix\GandiApi\ApiV5\Organizations;
+$organizations = new Organizations($configuration);
+
+$list = $organizations->getList();
+foreach($list as $organization) {
+    echo $organization->getName() . ", " . $organization->getType(). ", ".$organization->getId() . "\n" ;
+}
+
+// Create a zone Record
+use Jelix\GandiApi\ApiV5\LiveDns\ZoneRecord;
+$apiLiveDns = new \Jelix\GandiApi\ApiV5\LiveDns($configuration);
+
+$record = new ZoneRecord(
+    'myrecordname', // name
+    'A', // type
+    ['127.0.0.1'], // values
+    10800 // ttl
+);
+
+$message = $apiLiveDns->createRecord('my.domain', $record);
+
+```
+
+
+Supported API
+==============
+
+- get Gandi Status (no api key is needed)
+- list of organizations
+- retrieve an organization by name
+- LiveDNS: domains list
+- LiveDNS: records list
+- LiveDNS: create a record into a zone
+
+
+Feel free to help us to implement other API ;-) 
