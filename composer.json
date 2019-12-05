@@ -1,7 +1,7 @@
 {
   "name": "jelix/gandi-v5",
   "type": "library",
-  "description": "Library and cli script to use Gandi api",
+  "description": "Library and cli script to use the Gandi API V5",
   "license": "MIT",
   "authors": [
     {
