@@ -22,7 +22,7 @@ class ZoneRecord
     /**
      * ZoneRecord constructor
      */
-    function __construct($name, $type, $values, $ttl=10800)
+    function __construct($name, $type, array $values, $ttl=10800)
     {
         $this->name = $name;
         $this->type = $type;

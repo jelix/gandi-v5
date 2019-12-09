@@ -8,6 +8,7 @@
 namespace Jelix\GandiApi\ApiV5;
 
 
+use GuzzleHttp\Exception\RequestException;
 use Jelix\GandiApi\ApiV5\Entities\ZoneRecord;
 
 class LiveDns extends AbstractApi
@@ -41,6 +42,20 @@ class LiveDns extends AbstractApi
         return array_map(function($rec) {
             return ZoneRecord::createFromApi($rec);
         }, $records);
+    }
+
+    function createRecordIfNotExists($domain, ZoneRecord $record)
+    {
+        try {
+            $this->httpGet("livedns/domains/$domain/records/".$record->getName()."/".$record->getType());
+        }
+        catch(RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == '404') {
+                return $this->createRecord($domain, $record);
+            }
+            throw $e;
+        }
+        return '';
     }
 
     function createRecord($domain, ZoneRecord $record)
