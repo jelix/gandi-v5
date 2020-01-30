@@ -15,16 +15,10 @@
   },
   "autoload" : {
     "psr-4": {
-      "Jelix\\GandiApi\\" : "src/"
+      "Yvestan\\GandiApi\\" : "src/"
     }
   },
   "bin": [
     "gandi"
   ],
-  "minimum-stability": "stable",
-  "extra" : {
-    "branch-alias": {
-      "dev-master": "1.0-dev"
-    }
-  }
 }
