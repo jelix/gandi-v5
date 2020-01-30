@@ -1,7 +1,7 @@
 {
-  "name": "yvestan/gandi-v5",
+  "name": "jelix/gandi-v5",
   "type": "library",
-  "description": "jelix/gandi-v5 Fork / Library and cli script to use the Gandi API V5",
+  "description": "Library and cli script to use the Gandi API V5",
   "license": "MIT",
   "authors": [
     {
@@ -10,15 +10,21 @@
     }
   ],
   "require": {
-    "symfony/console":"^4.3.0",
+    "symfony/console":"^4.4.0",
     "guzzlehttp/guzzle": "^6.4.0"
   },
   "autoload" : {
     "psr-4": {
-      "Yvestan\\GandiApi\\" : "src/"
+      "Jelix\\GandiApi\\" : "src/"
     }
   },
   "bin": [
     "gandi"
-  ]
+  ],
+  "minimum-stability": "stable",
+  "extra" : {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
 }
