@@ -1,7 +1,7 @@
 {
-  "name": "jelix/gandi-v5",
+  "name": "yvestan/gandi-v5",
   "type": "library",
-  "description": "Library and cli script to use the Gandi API V5",
+  "description": "jelix/gandi-v5 Fork / Library and cli script to use the Gandi API V5",
   "license": "MIT",
   "authors": [
     {
