@@ -103,6 +103,14 @@ abstract class AbstractApi
         return $this->_doHttp($apiPath, 'PATCH', $options);
     }
 
+    protected function httpPut($apiPath, $jsonData = array(), $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' =>$additionalHeaders,
+            'json' => $jsonData
+        );
+        return $this->_doHttp($apiPath, 'PUT', $options);
+    }
 
     protected function httpPostForm($apiPath, $formParameters = array(), $additionalHeaders = array())
     {
