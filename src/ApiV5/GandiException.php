@@ -18,18 +18,22 @@ class GandiException extends \Exception
     function __construct(Response $response)
     {
         $this->json = json_decode($response->getBody());
-        parent::__construct($this->json['cause'].": ".$this->json['message'], $this->json['code']);
+        parent::__construct($this->json->cause.": ".$this->json->message, $this->json->code);
     }
 
     function getErrorCause() {
-        return $this->json['cause'];
+        return $this->json->cause;
     }
 
     function getErrorMessage() {
-        return $this->json['message'];
+        return $this->json->message;
     }
 
     function getErrorObject() {
-        return $this->json['object'];
+        return $this->json->object;
+    }
+
+    function getErrorCode() {
+        return $this->json->code;
     }
 }
