@@ -242,4 +242,28 @@ class Domains extends AbstractApi
         $response = $this->httpDelete('domain/domains/'.$domain.'/hosts/'.$name);
         return json_decode($response->getBody());
     }
+
+    /**
+     * @param string $domain
+     * @return string[]
+     * @throws \Exception
+     */
+    function lock($domain) {
+        $response = $this->httpPatch('domain/domains/'.$domain.'/status', [
+            'clientTransferProhibited' => true
+        ]);
+        return json_decode($response->getBody());
+    }
+
+    /**
+     * @param string $domain
+     * @return string[]
+     * @throws \Exception
+     */
+    function unlock($domain) {
+        $response = $this->httpPatch('domain/domains/'.$domain.'/status', [
+            'clientTransferProhibited' => false
+        ]);
+        return json_decode($response->getBody());
+    }
 }
