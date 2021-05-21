@@ -34,11 +34,9 @@ abstract class AbstractApi
     protected function getHttpClient() {
 
         if (!$this->_client) {
-            $this->_client = new Client(
-                [
-                    'base_uri' => 'https://'.$this->config->getGandiEndPoint().'/v5/'
-                ]
-            );
+            $this->_client = new Client([
+                'base_uri' => 'https://'.$this->config->getGandiEndPoint().'/v5/'
+            ]);
         }
         return $this->_client;
     }
@@ -54,6 +52,8 @@ abstract class AbstractApi
     private function _doHttp($apiPath, $method, $options = array())
     {
         $client = $this->getHttpClient();
+
+        $options['http_errors'] = false;
 
         if (!isset($options['headers'])) {
             $options['headers'] = array();
@@ -92,6 +92,24 @@ abstract class AbstractApi
             'json' => $jsonData
         );
         return $this->_doHttp($apiPath, 'POST', $options);
+    }
+
+    protected function httpPatch($apiPath, $jsonData = array(), $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' =>$additionalHeaders,
+            'json' => $jsonData
+        );
+        return $this->_doHttp($apiPath, 'PATCH', $options);
+    }
+
+    protected function httpPut($apiPath, $jsonData = array(), $additionalHeaders = array())
+    {
+        $options = array(
+            'headers' =>$additionalHeaders,
+            'json' => $jsonData
+        );
+        return $this->_doHttp($apiPath, 'PUT', $options);
     }
 
     protected function httpPostForm($apiPath, $formParameters = array(), $additionalHeaders = array())
