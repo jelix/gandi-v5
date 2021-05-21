@@ -9,10 +9,19 @@ namespace Jelix\GandiApi\ApiV5;
 
 use GuzzleHttp\Exception\RequestException;
 
+/**
+ * Class Domains
+ *
+ * @experimental  its API is planned to be changed
+ *
+ */
 class Domains extends AbstractApi
 {
     /**
+     * Check domain availability
+     *
      * @param array $params
+     *      name, country, currency, duration_unit, extension, grid, lang, max_duration, period, process
      * @param string $orgId
      * @return string[]
      * @throws \Exception
