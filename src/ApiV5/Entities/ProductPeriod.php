@@ -8,9 +8,9 @@
 namespace Jelix\GandiApi\ApiV5\Entities;
 
 /**
- * @property-read $name
- * @property-read $starts_at
- * @property-read $ends_at
+ * @property-read string $name
+ * @property-read string $starts_at
+ * @property-read string $ends_at
  */
 class ProductPeriod extends AbstractReadOnlyData
 {

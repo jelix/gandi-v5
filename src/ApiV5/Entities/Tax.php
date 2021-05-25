@@ -9,9 +9,9 @@ namespace Jelix\GandiApi\ApiV5\Entities;
 
 /**
  * Class Tax
- * @property-read $rate
- * @property-read $name
- * @property-read $type
+ * @property-read float $rate
+ * @property-read string $name
+ * @property-read string $type
  */
 class Tax extends AbstractReadOnlyData
 {

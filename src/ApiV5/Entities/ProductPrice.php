@@ -10,16 +10,16 @@ namespace Jelix\GandiApi\ApiV5\Entities;
 /**
  * Class ProductPrice
  *
- * @property-read $duration_unit
- * @property-read $max_duration
- * @property-read $min_duration
- * @property-read $price_after_taxes
- * @property-read $price_before_taxes
- * @property-read $discount
- * @property-read $normal_price_after_taxes
- * @property-read $normal_price_before_taxes
- * @property-read $type
- * @property-read $options
+ * @property-read string $duration_unit
+ * @property-read int $max_duration
+ * @property-read int $min_duration
+ * @property-read float $price_after_taxes
+ * @property-read float $price_before_taxes
+ * @property-read boolean $discount
+ * @property-read float $normal_price_after_taxes
+ * @property-read float $normal_price_before_taxes
+ * @property-read string $type
+ * @property-read object $options
  */
 class ProductPrice extends AbstractReadOnlyData
 {
