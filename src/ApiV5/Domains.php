@@ -8,6 +8,7 @@
 namespace Jelix\GandiApi\ApiV5;
 
 use GuzzleHttp\Exception\RequestException;
+use Jelix\GandiApi\ApiV5\Entities\DomainAvailability;
 
 /**
  * Class Domains
@@ -20,21 +21,27 @@ class Domains extends AbstractApi
     /**
      * Check domain availability
      *
-     * @param array $params
+     * @param string $domainName
+     * @param string $orgId   Organization for which the pricing is to be made
+     * @param array $otherQueryParameters
      *      name, country, currency, duration_unit, extension, grid, lang, max_duration, period, process
-     * @param string $orgId
-     * @return string[]
+
+     * @return DomainAvailability
      * @throws \Exception
      */
-    function check($params, $orgId = '') {
+    function check($domainName, $orgId = '', $otherQueryParameters = array()) {
+
+        $params = $otherQueryParameters;
+        $params['name'] = $domainName;
         if ($orgId) {
-            $response = $this->httpGet('domain/check', array_merge($params, [
-                'sharing_id' => $orgId, 
-            ]));
-        } else {
-            $response = $this->httpGet('domain/check', $params);
+            $params['sharing_id'] = $orgId;
         }
-        return json_decode($response->getBody());
+
+        $response = $this->httpGet('domain/check', $params);
+
+        $data = json_decode($response->getBody());
+        return DomainAvailability::createFromApi($data);
+
     }
 
     /**
