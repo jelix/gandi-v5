@@ -96,4 +96,4 @@ Supported API
 - LiveDNS: create a record into a zone
 
 
-Feel free to help us to implement other API ;-) 
+Feel free to help us to implement [other API](https://api.gandi.net/docs/) ;-) 
