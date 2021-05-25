@@ -93,7 +93,7 @@ Supported API
 - retrieve an organization by name
 - LiveDNS: domains list
 - LiveDNS: records list
-- LiveDNS: create a record into a zone
+- LiveDNS: create/update/delete a record into a zone
 
 
 Feel free to help us to implement other API ;-) 

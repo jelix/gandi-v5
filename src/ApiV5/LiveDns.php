@@ -65,4 +65,38 @@ class LiveDns extends AbstractApi
         return $record->message;
     }
 
+    function createOrUpdateRecord($domain, ZoneRecord $record)
+    {
+        try {
+            $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
+            $this->httpGet($url);
+            // ok, we got a valid response, let's update the record
+            $response = $this->httpPut($url, $record->toJsonData());
+            $message = json_decode($response->getBody());
+        }
+        catch(RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == '404') {
+                return $this->createRecord($domain, $record);
+            }
+            throw $e;
+        }
+        return $message->message ;
+    }
+
+    function updateRecord($domain, ZoneRecord $record)
+    {
+        $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
+        $this->httpGet($url);
+        // ok, we got a valid response, let's update the record
+        $response = $this->httpPut($url, $record->toJsonData());
+        $message = json_decode($response->getBody());
+        return $message->message ;
+    }
+
+    function deleteRecord($domain, ZoneRecord $record)
+    {
+        $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
+        $this->httpDelete($url);
+    }
+
 }
