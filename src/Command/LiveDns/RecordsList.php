@@ -53,6 +53,7 @@ class RecordsList  extends AbstractCommand
             $table->addRow($row);
         }
         $table->render();
+        return 0;
     }
 
 }

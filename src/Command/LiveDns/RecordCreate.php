@@ -64,6 +64,7 @@ class RecordCreate  extends AbstractCommand
 
         $message = $apiLiveDns->createRecord($input->getArgument('domain'), $record);
         $output->writeln($message);
+        return 0;
     }
 
 }
