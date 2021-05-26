@@ -39,8 +39,8 @@ class ZoneRecord
         return new ZoneRecord(
             $rawRecord->rrset_name,
             $rawRecord->rrset_type,
-            $rawRecord->rrset_ttl,
-            $rawRecord->rrset_values
+            $rawRecord->rrset_values,
+            $rawRecord->rrset_ttl
         );
     }
 
