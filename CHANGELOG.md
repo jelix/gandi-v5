@@ -1,7 +1,7 @@
 # Changelog
 
 
-# next
+# 0.2.0
 
 - LiveDNS: new methods `createOrUpdateRecord`, `updateRecord`, `deleteRecord`
 - API CHANGE: `Status::getCurrentStatus()` returns now an array. The status web API of Gandi has changed.
