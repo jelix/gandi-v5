@@ -44,20 +44,19 @@ class LiveDns extends AbstractApi
         }, $records);
     }
 
-    function createRecordIfNotExists($domain, ZoneRecord $record)
-    {
-        try {
-            $this->httpGet("livedns/domains/$domain/records/".$record->getName()."/".$record->getType());
-        }
-        catch(RequestException $e) {
-            if ($e->getResponse()->getStatusCode() == '404') {
-                return $this->createRecord($domain, $record);
-            }
-            throw $e;
-        }
-        return '';
-    }
-
+    /**
+     * Create a record.
+     *
+     * If the record already exists with same values, no error, else a
+     * GandiException occurs.
+     *
+     * @param string $domain
+     * @param  ZoneRecord  $record
+     *
+     * @return string  an informal message from Gandi
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     function createRecord($domain, ZoneRecord $record)
     {
         $response = $this->httpPost("livedns/domains/$domain/records", $record->toJsonData());
@@ -65,6 +64,18 @@ class LiveDns extends AbstractApi
         return $record->message;
     }
 
+    /**
+     * Create a record, or update it if it already exists
+     *
+     * If it fails, an exception occurs.
+     *
+     * @param string $domain
+     * @param  ZoneRecord  $record the record to create or update
+     *
+     * @return  string  an informal message from Gandi
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     function createOrUpdateRecord($domain, ZoneRecord $record)
     {
         try {
@@ -83,6 +94,18 @@ class LiveDns extends AbstractApi
         return $message->message ;
     }
 
+    /**
+     * Update a record
+     *
+     * If it fails, an exception occurs.
+     *
+     * @param string $domain
+     * @param  ZoneRecord  $record
+     *
+     * @return string  an informal message from Gandi
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     function updateRecord($domain, ZoneRecord $record)
     {
         $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
@@ -93,6 +116,14 @@ class LiveDns extends AbstractApi
         return $message->message ;
     }
 
+    /**
+     * Delete a record
+     * @param string $domain
+     * @param  ZoneRecord  $record
+     *
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     function deleteRecord($domain, ZoneRecord $record)
     {
         $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();

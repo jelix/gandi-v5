@@ -42,9 +42,10 @@ abstract class AbstractApi
     }
 
     /**
-     * @param $apiPath
-     * @param $method
-     * @param array $options
+     * @param string $apiPath
+     * @param string $method
+     * @param array $options Options for the HTTP Api
+     *
      * @return \Psr\Http\Message\ResponseInterface
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -72,7 +73,15 @@ abstract class AbstractApi
         return $response;
     }
 
-
+    /**
+     * @param string $apiPath
+     * @param  array  $queryParameters
+     * @param  array  $additionalHeaders
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     protected function httpGet($apiPath, $queryParameters = array(), $additionalHeaders = array())
     {
         $options = array(
@@ -85,6 +94,15 @@ abstract class AbstractApi
         return $this->_doHttp($apiPath, 'GET', $options);
     }
 
+    /**
+     * @param string $apiPath
+     * @param  array  $jsonData
+     * @param  array  $additionalHeaders
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     protected function httpPost($apiPath, $jsonData = array(), $additionalHeaders = array())
     {
         $options = array(
@@ -94,6 +112,15 @@ abstract class AbstractApi
         return $this->_doHttp($apiPath, 'POST', $options);
     }
 
+    /**
+     * @param string $apiPath
+     * @param  array  $jsonData
+     * @param  array  $additionalHeaders
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     protected function httpPatch($apiPath, $jsonData = array(), $additionalHeaders = array())
     {
         $options = array(
@@ -103,6 +130,15 @@ abstract class AbstractApi
         return $this->_doHttp($apiPath, 'PATCH', $options);
     }
 
+    /**
+     * @param string $apiPath
+     * @param  array  $jsonData
+     * @param  array  $additionalHeaders
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     protected function httpPut($apiPath, $jsonData = array(), $additionalHeaders = array())
     {
         $options = array(
@@ -112,6 +148,15 @@ abstract class AbstractApi
         return $this->_doHttp($apiPath, 'PUT', $options);
     }
 
+    /**
+     * @param string $apiPath
+     * @param  array  $formParameters
+     * @param  array  $additionalHeaders
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     protected function httpPostForm($apiPath, $formParameters = array(), $additionalHeaders = array())
     {
         $options = array(
@@ -122,6 +167,14 @@ abstract class AbstractApi
         return $this->_doHttp($apiPath, 'POST', $options);
     }
 
+    /**
+     * @param string $apiPath
+     * @param  array  $additionalHeaders
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     protected function httpDelete($apiPath, $additionalHeaders = array())
     {
         $options = array(

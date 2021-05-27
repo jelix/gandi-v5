@@ -3,7 +3,7 @@
 
 # next
 
-- LiveDNS: new methods `createRecordIfNotExists`, `createOrUpdateRecord`, `updateRecord`, `deleteRecord`
+- LiveDNS: new methods `createOrUpdateRecord`, `updateRecord`, `deleteRecord`
 - API CHANGE: `Status::getCurrentStatus()` returns now an array. The status web API of Gandi has changed.
 - Requirements: PHP minimum version is now 7.2.5.
 - Upgrade Symphony Console to `5.2.*` and GuzzleHttp to `7.3.*`
