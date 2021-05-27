@@ -9,7 +9,7 @@ Using CLI commands
 Requirements
 -------------
 
-You must have PHP 7.1+.
+Minimum version of PHP is 7.2.5.
 
 Api key
 -------
