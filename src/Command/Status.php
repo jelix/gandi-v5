@@ -25,14 +25,19 @@ class Status extends  Command
     {
         $apiStatus = new \Jelix\GandiApi\ApiV5\Status();
         $status = $apiStatus->getCurrentStatus();
-        switch($status) {
-            case "SUNNY":
+        $exitCode = 0;
+        switch($status['indicator']) {
+            case \Jelix\GandiApi\ApiV5\Status::STATUS_NONE:
                 $output->writeln('All Gandi services are operational');
                 break;
+            case \Jelix\GandiApi\ApiV5\Status::STATUS_MINOR:
+                $output->writeln("<info>Gandi is experiencing a minor trouble: ".$status['description']."</info>");
+                break;
             default:
-                $output->writeln("<error>Gandi is experiencing a bit of trouble: $status</error>");
-                $this->setCode(1);
+                $output->writeln("<error>Gandi is experiencing a ".$status['indicator']." trouble: ".$status['description']."</error>");
+                $exitCode = 1;
         };
+        return $exitCode;
     }
 }
 

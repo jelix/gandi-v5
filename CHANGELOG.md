@@ -5,6 +5,7 @@
 
 - LiveDNS: new methods `createRecordIfNotExists`, `createOrUpdateRecord`, `updateRecord`, `deleteRecord`
 - Use Symphony Console 5.2.*
+- API CHANGE: `Status::getCurrentStatus()` returns now an array. The status web API of Gandi has changed.
 - Fix exceptions management
 - Fix a parameter issue into `ZoneRecord::createFromApi()`
 
