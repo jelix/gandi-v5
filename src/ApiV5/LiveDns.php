@@ -85,6 +85,12 @@ class LiveDns extends AbstractApi
             $response = $this->httpPut($url, $record->toJsonData());
             $message = json_decode($response->getBody());
         }
+        catch(GandiException $e) {
+            if ($e->getCode() == '404') {
+                return $this->createRecord($domain, $record);
+            }
+            throw $e;
+        }
         catch(RequestException $e) {
             if ($e->getResponse()->getStatusCode() == '404') {
                 return $this->createRecord($domain, $record);
