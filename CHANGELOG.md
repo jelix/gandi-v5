@@ -1,6 +1,11 @@
 # Changelog
 
 
+# 0.2.1
+
+- Fix `LiveDNS::createOrUpdateRecord`
+- New command `livedns:record:delete`
+
 # 0.2.0
 
 - LiveDNS: new methods `createOrUpdateRecord`, `updateRecord`, `deleteRecord`
