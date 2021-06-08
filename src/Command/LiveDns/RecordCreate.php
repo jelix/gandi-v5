@@ -9,6 +9,7 @@ namespace Jelix\GandiApi\Command\LiveDns;
 
 use Jelix\GandiApi\ApiV5\Entities\ZoneRecord;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Jelix\GandiApi\Command\AbstractCommand;
@@ -47,23 +48,46 @@ class RecordCreate  extends AbstractCommand
                 InputArgument::OPTIONAL,
                 'the ttl of the record'
             )
+            ->addOption(
+                'force-update',
+                'f',
+                InputOption::VALUE_NONE,
+                'If the record already exists, this option allow to update it'
+            )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $apiLiveDns = new \Jelix\GandiApi\ApiV5\LiveDns($this->configuration);
-
+        $domain = $input->getArgument('domain');
         $ttl = $input->getArgument('ttl');
+        $name = $input->getArgument('name');
+        $type = $input->getArgument('type');
         $record = new ZoneRecord(
-            $input->getArgument('name'),
-            $input->getArgument('type'),
+            $name,
+            $type,
             [$input->getArgument('value')],
             $ttl ?: 10800
         );
 
-        $message = $apiLiveDns->createRecord($input->getArgument('domain'), $record);
-        $output->writeln($message);
+        $existingRecord = $apiLiveDns->getRecord($domain, $name, $type);
+        if ($existingRecord) {
+            if ($input->getOption('force-update')) {
+                $message = $apiLiveDns->updateRecord($domain, $record);
+                $output->writeln($message);
+            }
+            else {
+                $output->writeln('<error>The record already exists</error>');
+                $output->writeln(json_encode($existingRecord->toJsonData()));
+                return 1;
+            }
+        }
+        else {
+            $message = $apiLiveDns->createRecord($domain, $record);
+            $output->writeln($message);
+        }
+
         return 0;
     }
 

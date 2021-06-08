@@ -123,6 +123,40 @@ class LiveDns extends AbstractApi
     }
 
     /**
+     * @param string $domain the root domain
+     * @param string $name the subdomain name
+     * @param string $type A, CNAME etc..
+     *
+     * @return ZoneRecord|null the record or null if it does not exists
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    function getRecord($domain, $name, $type)
+    {
+        try {
+            $url = "livedns/domains/$domain/records/".$name."/".$type;
+            $response = $this->httpGet($url);
+            $message = json_decode($response->getBody());
+            $record = new ZoneRecord($message->rrset_name, $message->rrset_type,
+                                     $message->rrset_values,
+                (isset($message->rrset_ttl)?$message->rrset_ttl:0));
+            return $record;
+        }
+        catch(GandiException $e) {
+            if ($e->getCode() == '404') {
+                return null;
+            }
+            throw $e;
+        }
+        catch(RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == '404') {
+                return null;
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Delete a record
      * @param string $domain
      * @param  ZoneRecord  $record
