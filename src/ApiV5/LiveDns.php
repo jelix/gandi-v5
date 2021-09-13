@@ -169,9 +169,7 @@ class LiveDns extends AbstractApi
             $url = "livedns/domains/$domain/records/".$name."/".$type;
             $response = $this->httpGet($url);
             $message = json_decode($response->getBody());
-            $record = new ZoneRecord($message->rrset_name, $message->rrset_type,
-                                     $message->rrset_values,
-                (isset($message->rrset_ttl)?$message->rrset_ttl:0));
+            $record = ZoneRecord::createFromApi($message);
             return $record;
         }
         catch(GandiException $e) {

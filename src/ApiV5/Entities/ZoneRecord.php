@@ -40,7 +40,7 @@ class ZoneRecord
             $rawRecord->rrset_name,
             $rawRecord->rrset_type,
             $rawRecord->rrset_values,
-            $rawRecord->rrset_ttl
+            isset($rawRecord->rrset_ttl)? $rawRecord->rrset_ttl: 0
         );
     }
 
