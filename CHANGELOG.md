@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.2.3
+
+- new method `LiveDns::createRecordIfNotExists()`
+- Fix command OrganizationList to be compatible with Symphony Console
 
 # 0.2.2
 
