@@ -117,6 +117,12 @@ class LiveDns extends AbstractApi
         try {
             $this->httpGet("livedns/domains/$domain/records/".$record->getName()."/".$record->getType());
         }
+        catch(GandiException $e) {
+            if ($e->getCode() == '404') {
+                return $this->createRecord($domain, $record);
+            }
+            throw $e;
+        }
         catch(RequestException $e) {
             if ($e->getResponse()->getStatusCode() == '404') {
                 return $this->createRecord($domain, $record);
