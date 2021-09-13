@@ -60,6 +60,15 @@ class ZoneRecord
         return $this->values;
     }
 
+    public function equalsTo($record)
+    {
+        return $record->getName() == $this->name
+            && $record->getType() == $this->type
+            && $record->getTtl() == $this->ttl
+            && $record->getValues() == $this->values;
+    }
+
+
     public function toJsonData() {
         return array(
             'rrset_name' => $this->name,

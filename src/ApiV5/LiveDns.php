@@ -65,14 +65,14 @@ class LiveDns extends AbstractApi
     }
 
     /**
-     * Create a record, or update it if it already exists
+     * Create a record, or update it if it already exists and if it is different
      *
      * If it fails, an exception occurs.
      *
      * @param string $domain
      * @param  ZoneRecord  $record the record to create or update
      *
-     * @return  string  an informal message from Gandi
+     * @return  string  an informal message from Gandi. Return empty string if no changes.
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -80,7 +80,13 @@ class LiveDns extends AbstractApi
     {
         try {
             $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
-            $this->httpGet($url);
+            $response = $this->httpGet($url);
+            $message = json_decode($response->getBody());
+            $existingRecord = ZoneRecord::createFromApi($message);
+            if ($existingRecord->equalsTo($record)) {
+                return '';
+            }
+
             // ok, we got a valid response, let's update the record
             $response = $this->httpPut($url, $record->toJsonData());
             $message = json_decode($response->getBody());
