@@ -101,6 +101,32 @@ class LiveDns extends AbstractApi
     }
 
     /**
+     * Create a record only if it does not already exist
+     *
+     * If it fails, an exception occurs.
+     *
+     * @param string $domain
+     * @param  ZoneRecord  $record the record to create
+     *
+     * @return  string  an informal message from Gandi if the record does not exists
+     * @throws GandiException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    function createRecordIfNotExists($domain, ZoneRecord $record)
+    {
+        try {
+            $this->httpGet("livedns/domains/$domain/records/".$record->getName()."/".$record->getType());
+        }
+        catch(RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == '404') {
+                return $this->createRecord($domain, $record);
+            }
+            throw $e;
+        }
+        return '';
+    }
+
+    /**
      * Update a record
      *
      * If it fails, an exception occurs.
