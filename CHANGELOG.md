@@ -1,5 +1,11 @@
 # Changelog
 
+# 0.2.4
+
+- some bug fix
+- `LiveDNS::createOrUpdateRecord` update only if the given record is different
+  from the existing record
+
 # 0.2.3
 
 - new method `LiveDns::createRecordIfNotExists()`
