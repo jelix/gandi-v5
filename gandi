@@ -6,7 +6,18 @@
  * @licence     MIT
  */
 
-require(__DIR__.'/vendor/autoload.php');
+if (file_exists(__DIR__.'/vendor/autoload.php')) {
+    require(__DIR__.'/vendor/autoload.php');
+}
+else if (file_exists(__DIR__.'/../autoload.php')) {
+    // gandi script is into vendor/bin/
+    require(__DIR__.'/../autoload.php');
+}
+else if (file_exists(__DIR__.'/../../autoload.php')) {
+    // gandi script is into vendor/jelix/gandi-v5/
+    require(__DIR__.'/../../autoload.php');
+}
+
 
 use Jelix\GandiApi\Configuration;
 use Jelix\GandiApi\Command\Application;
