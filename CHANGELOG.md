@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.0
+
+Update dependencies.
+
 # 0.2.5
 
 Fix autoload into the gandi script
