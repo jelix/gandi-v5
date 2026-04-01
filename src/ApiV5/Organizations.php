@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -14,7 +14,8 @@ class Organizations extends AbstractApi
      * @return Organization[]
      * @throws \Exception
      */
-    function getList() {
+    function getList() : array
+    {
         $response = $this->httpGet("organization/organizations");
         $organizations = json_decode($response->getBody());
 
@@ -29,7 +30,8 @@ class Organizations extends AbstractApi
      * @return Organization|null  null if not found
      * @throws \Exception
      */
-    function getOrganizationByName($name) {
+    function getOrganizationByName(string $name) : ?Organization
+    {
         $response = $this->httpGet("organization/organizations", array('name'=>$name));
         $organizations = json_decode($response->getBody());
         if (count($organizations)) {

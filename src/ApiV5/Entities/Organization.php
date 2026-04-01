@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 

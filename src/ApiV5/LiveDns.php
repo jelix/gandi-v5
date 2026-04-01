@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -18,7 +18,8 @@ class LiveDns extends AbstractApi
      * @return string[]
      * @throws \Exception
      */
-    function getDomainsList($orgId = '') {
+    function getDomainsList($orgId = ''): array
+    {
         if ($orgId) {
             $response = $this->httpGet("livedns/domains", array('sharing_id'=>$orgId));
         }
@@ -36,7 +37,8 @@ class LiveDns extends AbstractApi
      * @return ZoneRecord[]
      * @throws \Exception
      */
-    function getRecordsList($domain) {
+    function getRecordsList(string $domain): array
+    {
         $response = $this->httpGet("livedns/domains/$domain/records");
         $records = json_decode($response->getBody());
         return array_map(function($rec) {
@@ -57,7 +59,7 @@ class LiveDns extends AbstractApi
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function createRecord($domain, ZoneRecord $record)
+    function createRecord(string $domain, ZoneRecord $record): string
     {
         $response = $this->httpPost("livedns/domains/$domain/records", $record->toJsonData());
         $record = json_decode($response->getBody());
@@ -76,7 +78,7 @@ class LiveDns extends AbstractApi
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function createOrUpdateRecord($domain, ZoneRecord $record)
+    function createOrUpdateRecord(string $domain, ZoneRecord $record): string
     {
         try {
             $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
@@ -118,7 +120,7 @@ class LiveDns extends AbstractApi
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function createRecordIfNotExists($domain, ZoneRecord $record)
+    function createRecordIfNotExists(string $domain, ZoneRecord $record): string
     {
         try {
             $this->httpGet("livedns/domains/$domain/records/".$record->getName()."/".$record->getType());
@@ -150,7 +152,7 @@ class LiveDns extends AbstractApi
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function updateRecord($domain, ZoneRecord $record)
+    function updateRecord(string $domain, ZoneRecord $record) : string
     {
         $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
         $this->httpGet($url);
@@ -169,7 +171,7 @@ class LiveDns extends AbstractApi
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function getRecord($domain, $name, $type)
+    function getRecord(string $domain, string $name, string $type): ?ZoneRecord
     {
         try {
             $url = "livedns/domains/$domain/records/".$name."/".$type;
@@ -200,7 +202,7 @@ class LiveDns extends AbstractApi
      * @throws GandiException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function deleteRecord($domain, ZoneRecord $record)
+    function deleteRecord(string $domain, ZoneRecord $record) : void
     {
         $url = "livedns/domains/$domain/records/".$record->getName()."/".$record->getType();
         $this->httpDelete($url);

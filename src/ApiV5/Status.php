@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -22,7 +22,8 @@ class Status
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @see https://status.gandi.net/api
      */
-    function getCurrentStatus() {
+    function getCurrentStatus() : array
+    {
 
         $client = new Client();
         $res = $client->get('https://xnm08yh10bv5.statuspage.io/api/v2/status.json');

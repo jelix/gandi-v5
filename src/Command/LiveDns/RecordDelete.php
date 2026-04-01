@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -12,7 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Jelix\GandiApi\Command\AbstractCommand;
-use Symfony\Component\Console\Helper\Table;
 
 class RecordDelete  extends AbstractCommand
 {
@@ -40,7 +39,7 @@ class RecordDelete  extends AbstractCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $apiLiveDns = new \Jelix\GandiApi\ApiV5\LiveDns($this->configuration);
 

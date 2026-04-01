@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Status extends  Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('status')
@@ -21,7 +21,7 @@ class Status extends  Command
             ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $apiStatus = new \Jelix\GandiApi\ApiV5\Status();
         $status = $apiStatus->getCurrentStatus();
@@ -40,5 +40,3 @@ class Status extends  Command
         return $exitCode;
     }
 }
-
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -29,7 +29,7 @@ abstract class AbstractCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      */
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->configuration = $this->getApplication()->getConfiguration();
     }
@@ -40,7 +40,7 @@ abstract class AbstractCommand extends Command
      * @param Application|null $application
      * @throws \Exception
      */
-    public function setApplication(\Symfony\Component\Console\Application $application = null)
+    public function setApplication(\Symfony\Component\Console\Application $application = null): void
     {
         if (!$application instanceof \Jelix\GandiApi\Command\Application) {
             throw new \Exception("Wrong application object");

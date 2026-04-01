@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Helper\Table;
 class OrganizationList  extends AbstractCommand
 {
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('organizations')
@@ -22,7 +22,7 @@ class OrganizationList  extends AbstractCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $apiLiveDns = new \Jelix\GandiApi\ApiV5\Organizations($this->configuration);
         $domains = $apiLiveDns->getList();

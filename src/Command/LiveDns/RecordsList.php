@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Helper\Table;
 class RecordsList  extends AbstractCommand
 {
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('livedns:records')
@@ -29,7 +29,7 @@ class RecordsList  extends AbstractCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $apiLiveDns = new \Jelix\GandiApi\ApiV5\LiveDns($this->configuration);
         $records = $apiLiveDns->getRecordsList($input->getArgument('domain'));

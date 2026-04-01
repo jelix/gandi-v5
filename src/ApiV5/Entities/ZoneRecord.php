@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Laurent Jouanneau
- * @copyright   2019 Laurent Jouanneau
+ * @copyright   2019-2026 Laurent Jouanneau
  * @licence     MIT
  */
 
@@ -34,7 +34,7 @@ class ZoneRecord
      * Create a ZoneRecord object from data retrieved with the web API
      * @param \stdClass $rawRecord
      */
-    static function createFromApi($rawRecord)
+    static function createFromApi($rawRecord) : ZoneRecord
     {
         return new ZoneRecord(
             $rawRecord->rrset_name,
@@ -44,23 +44,27 @@ class ZoneRecord
         );
     }
 
-    public function getName() {
+    public function getName() : string
+    {
         return $this->name;
     }
 
-    public function getType() {
+    public function getType() : string
+    {
         return $this->type;
     }
 
-    public function getTtl() {
+    public function getTtl() : int
+    {
         return $this->ttl;
     }
 
-    public function getValues() {
+    public function getValues() : array
+    {
         return $this->values;
     }
 
-    public function equalsTo($record)
+    public function equalsTo($record) : bool
     {
         return $record->getName() == $this->name
             && $record->getType() == $this->type
@@ -68,8 +72,8 @@ class ZoneRecord
             && $record->getValues() == $this->values;
     }
 
-
-    public function toJsonData() {
+    public function toJsonData() : array
+    {
         return array(
             'rrset_name' => $this->name,
             'rrset_type' => $this->type,
