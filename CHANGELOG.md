@@ -1,8 +1,9 @@
 # Changelog
 
-# 1.2.0
+# 2.0.0
 
-Update dependencies.
+Update dependencies. Use Symfony Console 7.4. 
+Require PHP 8.2 or higher.
 
 # 1.1.0
 
